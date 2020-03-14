@@ -28,7 +28,7 @@ import i18n from '@/i18n/index.js';
 export default {
   computed: {
     language() {
-      return this.$store.state.lang;
+      return localStorage.getItem('locale') || 'tw';
     },
   },
   methods: {
