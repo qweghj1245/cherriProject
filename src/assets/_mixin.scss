@@ -1,0 +1,34 @@
+@mixin size($w, $h) {
+  width: $w;
+  height: $h;
+}
+
+
+
+
+$space-values: (8, 16, 24, 32, 40) !default;
+$phone-space-values: (0, 4, 8, 12, 16, 24, 32, 40) !default;
+$space-prefixes: (
+  p: padding,
+  pt: padding-top,
+  pr: padding-right,
+  pb: padding-bottom,
+  pl: padding-left,
+  m: margin,
+  mt: margin-top,
+  mr: margin-right,
+  mb: margin-bottom,
+  ml: margin-left,
+) !default;
+
+@mixin spaces() {
+  @each $attr-short, $attr-long in $space-prefixes {
+    @each $value in $space-values {
+      .#{$attr-short}-#{$value} {
+        #{$attr-long}: #{$value}#{'px'};
+      }
+    }
+  }
+}
+
+@include spaces();
