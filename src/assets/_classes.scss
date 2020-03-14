@@ -16,8 +16,14 @@
 .justify-between{
   justify-content: space-between;
 }
+.justify-end {
+  justify-content: flex-end;
+}
 .align-center {
   align-items: center;
+}
+.align-end {
+  align-items: flex-end;
 }
 
 /* bg color */
@@ -26,6 +32,9 @@
 }
 .bg-white {
   background: $color-white;
+}
+.bg-light-grey {
+  background: $color-light-grey;
 }
 
 /* text-color */
@@ -37,6 +46,9 @@
 }
 .text-grey {
   color: $color-grey;
+}
+.text-light-grey {
+  color: $color-light-grey;
 }
 
 /* utils */
