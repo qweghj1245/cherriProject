@@ -9,10 +9,15 @@
         <div class="icon-wrap mr-16 p-8">
           <img :src="require('@/assets/img/ic_search.png')" />
         </div>
-        <div class="icon-wrap p-8">
+        <div
+          class="icon-wrap p-8"
+          :class="{'active': showTodoList}"
+          @click="showTodoList = !showTodoList"
+        >
           <img :src="require('@/assets/img/ic_note.png')" />
         </div>
       </div>
+      <todo-list v-show="showTodoList"/>
     </div>
     <div class="search flex-row align-center p-16">
       <input type="text" class="search-input p-8" />
@@ -36,7 +41,11 @@
 
 <script>
 import { userMessage } from '@/lib/user.js';
+import TodoList from '@/components/TodoList.vue';
 export default {
+  components: {
+    TodoList,
+  },
   computed: {
     userMsg() {
       return this.activeUser ? userMessage[this.activeUser].message : '';
@@ -44,6 +53,11 @@ export default {
     activeUser() {
       return this.$store.state.activeUser;
     },
+  },
+  data() {
+    return {
+      showTodoList: false,
+    };
   },
   methods: {
     setActiveUser() {
@@ -66,6 +80,7 @@ export default {
   height: calc(100% - 80px);
   .chat-header {
     box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
     .head {
       @include size(50px, 50px);
       border-radius: 50%;
@@ -80,6 +95,10 @@ export default {
       cursor: pointer;
       border: solid 1px transparent;
       &:hover {
+        border-color: rgba($color-grey, 0.4);
+        background: $color-light-grey;
+      }
+      &.active {
         border-color: rgba($color-grey, 0.4);
         background: $color-light-grey;
       }
