@@ -21,7 +21,7 @@
     </div>
     <div class="search flex-row align-center p-16" :class="{'show': showSearch}">
       <input type="text" class="search-input p-8" v-model="searchText" />
-      <div class="about mr-24 text-grey">{{searchCount}}則相關訊息</div>
+      <div class="about mr-24 text-grey">{{searchCount}}{{$t('__items')}}</div>
       <img :src="require('@/assets/img/ic_close1.png')" class="close" @click="searchText=''" />
     </div>
     <div class="msessages flex-column justify-end align-end">
@@ -33,7 +33,7 @@
       />
     </div>
     <div class="input-group p-16 flex-row">
-      <input type="text" class="set-msg" placeholder="輸入訊息..." />
+      <input type="text" class="set-msg" :placeholder="`${$t('__message')}...`" />
       <img :src="require('@/assets/img/ic_sent.png')" class="sent" />
     </div>
   </div>

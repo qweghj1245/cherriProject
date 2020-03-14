@@ -2,7 +2,7 @@
   <div class="todo-list bg-white">
     <div class="content p-24">
       <textarea class="text-area p-8 pl-16 pr-16" placeholder="輸入訊息..." />
-      <div class="add-button mt-8 bg-primary p-8 text-center text-white">新增</div>
+      <div class="add-button mt-8 bg-primary p-8 text-center text-white">{{$t('__add')}}</div>
       <div class="sperator mt-16 mb-16" />
       <div class="list-wrap">
         <div class="list pt-8 pb-8 p-16">

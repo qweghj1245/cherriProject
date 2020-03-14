@@ -3,8 +3,16 @@
     <div class="flex-row align-center justify-between flex-auto pl-32 pr-32">
       <div class="project-title text-white">Cherri Chat</div>
       <div class="flex-row translate">
-        <div class="bg-white text-primary flex-row align-center mr-8">中文</div>
-        <div class="text-white">English</div>
+        <div
+          class="text-white flex-row align-center mr-8"
+          :class="{'active-lang': language==='tw'}"
+          @click="changeLanguage('tw')"
+        >中文</div>
+        <div
+          class="text-white"
+          :class="{'active-lang': language==='en'}"
+          @click="changeLanguage('en')"
+        >English</div>
       </div>
     </div>
     <div class="sperator bg-white" />
@@ -14,6 +22,24 @@
     </div>
   </div>
 </template>
+
+<script>
+import i18n from '@/i18n/index.js';
+export default {
+  computed: {
+    language() {
+      return this.$store.state.lang;
+    },
+  },
+  methods: {
+    changeLanguage(lang) {
+      i18n.locale = lang;
+      localStorage.setItem('locale', lang);
+      this.$store.commit('setLang', lang);
+    },
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 .head {
@@ -31,9 +57,11 @@
       padding: 4px 24px;
       border-radius: 30px;
       cursor: pointer;
-      &:last-child {
-        border: solid 1px $color-white;
-      }
+      border: solid 1px $color-white;
+    }
+    .active-lang {
+      background: $color-white;
+      color: $color-primary;
     }
   }
   .photo {

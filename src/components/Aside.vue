@@ -1,6 +1,6 @@
 <template>
   <div class="aside">
-    <div class="text-grey p-16 title">好友列表(3)</div>
+    <div class="text-grey p-16 title">{{$t('__friendList')}}(3)</div>
     <div
       class="people flex-row align-center p-16"
       :class="{'bg-light-grey': activeUser===user.id}"

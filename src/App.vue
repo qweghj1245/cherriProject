@@ -4,6 +4,15 @@
   </div>
 </template>
 
+<script>
+export default {
+  created() {
+    let lang = localStorage.getItem('locale');
+    this.$store.commit('setLang', lang);
+  },
+};
+</script>
+
 <style lang="scss">
 html,
 body {
