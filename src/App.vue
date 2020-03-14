@@ -7,7 +7,7 @@
 <script>
 export default {
   created() {
-    let lang = localStorage.getItem('locale');
+    let lang = localStorage.getItem('locale') || 'tw';
     this.$store.commit('setLang', lang);
   },
 };
