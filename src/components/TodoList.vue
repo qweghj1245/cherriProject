@@ -1,14 +1,21 @@
 <template>
   <div class="todo-list bg-white">
     <div class="content p-24">
-      <textarea class="text-area p-8 pl-16 pr-16" placeholder="輸入訊息..." />
-      <div class="add-button mt-8 bg-primary p-8 text-center text-white">{{$t('__add')}}</div>
+      <textarea class="text-area p-8 pl-16 pr-16" placeholder="輸入訊息..." v-model="message" />
+      <div
+        class="add-button mt-8 bg-primary p-8 text-center text-white"
+        @click="addNewItem"
+      >{{$t('__add')}}</div>
       <div class="sperator mt-16 mb-16" />
       <div class="list-wrap">
-        <div class="list pt-8 pb-8 p-16">
-          <div class="add-time text-primary mb-16">1111</div>
-          <div class="msg">備忘訊息1</div>
-          <img :src="require('@/assets/img/ic_close2.png')" class="close" />
+        <div class="list pt-8 pb-8 p-16 mb-8" v-for="item in todoList" :key="item.id">
+          <div class="add-time text-primary mb-16">{{item.createAt}}</div>
+          <div class="msg">{{item.message}}</div>
+          <img
+            :src="require('@/assets/img/ic_close2.png')"
+            class="close"
+            @click="deleteItem(item.id)"
+          />
         </div>
       </div>
     </div>
@@ -16,7 +23,46 @@
 </template>
 
 <script>
-export default {};
+import moment from 'moment';
+export default {
+  computed: {
+    todoList() {
+      return this.$store.state.todoList.filter(
+        item => item.user === this.$route.params.id,
+      );
+    },
+  },
+  data() {
+    return {
+      message: '',
+    };
+  },
+  methods: {
+    addNewItem() {
+      if (!this.message) return;
+      let item = {
+        id: this.randomCode(10),
+        user: this.$route.params.id,
+        createAt: moment(Date.now()).format('YYYY/MM/DD HH:mm'),
+        message: this.message,
+      };
+      this.$store.commit('setTodoList', item);
+      this.message = '';
+    },
+    deleteItem(id) {
+      this.$store.commit('deleteTodoList', id);
+    },
+    randomCode(len) {
+      const key =
+        'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890';
+      let code = '';
+      for (let index = 0; index < len; index++) {
+        code += key.charAt(Math.floor(Math.random() * key.length));
+      }
+      return code;
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -57,13 +103,27 @@ export default {};
     .list {
       border: solid 1px $color-light-green;
       position: relative;
+      &:last-child {
+        margin-bottom: 0;
+      }
       .close {
         position: absolute;
         top: 8px;
         right: 8px;
         width: 12px;
+        cursor: pointer;
       }
     }
+  }
+  .list-wrap {
+    max-height: 300px;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  .add-button {
+    cursor: pointer;
   }
 }
 </style>

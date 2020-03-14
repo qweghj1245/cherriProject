@@ -22,7 +22,7 @@
     <div class="search flex-row align-center p-16" :class="{'show': showSearch}">
       <input type="text" class="search-input p-8" v-model="searchText" />
       <div class="about mr-24 text-grey">{{searchCount}}{{$t('__items')}}</div>
-      <img :src="require('@/assets/img/ic_close1.png')" class="close" @click="searchText=''" />
+      <img :src="require('@/assets/img/ic_close1.png')" class="close" @click="closeSearch" />
     </div>
     <div class="msessages flex-column justify-end align-end">
       <div
@@ -90,6 +90,10 @@ export default {
     },
     toggleShowSearch() {
       this.showSearch = !this.showSearch;
+    },
+    closeSearch() {
+      this.showSearch = false;
+      this.searchText = '';
     },
   },
   created() {
